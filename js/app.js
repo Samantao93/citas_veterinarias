@@ -14,48 +14,7 @@ const actionButton = document.querySelector('input[type="submit"]');
 // Place to show patients
 const listaCitas = document.querySelector('#citas');
 
-// Object to add information
-animal = {
-    paciente: '',
-    propietario: '',
-    email: '',
-    fecha: '',
-    sintomas: ''
-
-}
-
-// Listeners
-paciente.addEventListener('change',readValue)
-propietario.addEventListener('change',readValue)
-email.addEventListener('change',readValue)
-fecha.addEventListener('change',readValue)
-sintomas.addEventListener('change',readValue)
-actionButton.addEventListener('click',addPatient);
-
-// Functions
-function readValue(e){
-    e.preventDefault()
-    animal[e.target.name] = e.target.value;  
-}
-
-function validarEmail(texto){
-    const regex =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
-    return regex.test(texto);        
-}
-
-function addPatient(e) {
-    e.preventDefault();
-    // if(Object.values(animal).includes(''))
-    // Vemos si algún valor del objecto está vacío sin espacios
-    if(Object.values(animal).some(valor => valor.trim() === '')){
-        new alert("Todos los campos son obligatorios","error");
-        return
-    }
-    
-    new alert("Paciente añadido correctamente","check")
-
-}
-
+// Clases
 class alert {
 
     constructor(mensaje,tipo){
@@ -87,3 +46,109 @@ class alert {
     }
     
 }
+
+class citas {
+    constructor(){
+        this.cita = [];  
+        this.mostrarCita();      
+    }
+
+    agregarCita(citaAnimal) {        
+     /*    console.log(citaAnimal); */
+     /*    console.log(this.cita); */
+        this.cita = [...this.cita,citaAnimal];
+        /* console.log('----------------------');
+
+        console.log(this.cita); */
+        this.mostrarCita();
+        
+        formulario.reset();        
+    }
+
+    mostrarCita() {
+        // limpiar HTML
+        while (listaCitas.firstChild) {
+            listaCitas.removeChild(listaCitas.firstChild)
+        }
+
+        // Generar citas
+        this.cita.forEach(cita => {
+            const divCita = document.createElement('div');
+            divCita.classList.add('mx-5', 'my-10', 'bg-white', 'shadow-md', 'px-5', 'py-10' ,'rounded-xl', 'p-3');
+        
+            const paciente = document.createElement('p');
+            paciente.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
+            paciente.innerHTML = `<span class="font-bold uppercase">Paciente: </span> ${cita.paciente}`;
+        
+            const propietario = document.createElement('p');
+            propietario.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
+            propietario.innerHTML = `<span class="font-bold uppercase">Propietario: </span> ${cita.propietario}`;
+        
+            const email = document.createElement('p');
+            email.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
+            email.innerHTML = `<span class="font-bold uppercase">E-mail: </span> ${cita.email}`;
+        
+            const fecha = document.createElement('p');
+            fecha.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
+            fecha.innerHTML = `<span class="font-bold uppercase">Fecha: </span> ${cita.fecha}`;
+        
+            const sintomas = document.createElement('p');
+            sintomas.classList.add('font-normal', 'mb-3', 'text-gray-700', 'normal-case')
+            sintomas.innerHTML = `<span class="font-bold uppercase">Síntomas: </span> ${cita.sintomas}`;
+        
+            // Agregar al HTML
+            divCita.appendChild(paciente);
+            divCita.appendChild(propietario);
+            divCita.appendChild(email);
+            divCita.appendChild(fecha);
+            divCita.appendChild(sintomas);
+            listaCitas.appendChild(divCita);
+        }); 
+    }
+}
+
+// Object to add information
+const animal = {
+    paciente: '',
+    propietario: '',
+    email: '',
+    fecha: '',
+    sintomas: ''
+
+}
+
+// Listeners
+paciente.addEventListener('change',readValue)
+propietario.addEventListener('change',readValue)
+email.addEventListener('change',readValue)
+fecha.addEventListener('change',readValue)
+sintomas.addEventListener('change',readValue)
+actionButton.addEventListener('click',addPatient);
+
+// Functions
+function readValue(e){
+    e.preventDefault()
+    animal[e.target.name] = e.target.value;  
+}
+
+function validarEmail(texto){
+    const regex =  /^\w+([.-_+]?\w+)*@\w+([.-]?\w+)*(\.\w{2,10})+$/;
+    return regex.test(texto);        
+}
+
+const citaClass = new citas;
+
+function addPatient(e) {
+    e.preventDefault();
+    // if(Object.values(animal).includes(''))
+    // Vemos si algún valor del objecto está vacío sin espacios
+    if(Object.values(animal).some(valor => valor.trim() === '')){
+        new alert("Todos los campos son obligatorios","error");
+        return
+    }
+    
+    new alert("Paciente añadido correctamente","check")
+
+    citaClass.agregarCita(animal)
+}
+
