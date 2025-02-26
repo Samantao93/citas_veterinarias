@@ -14,9 +14,16 @@ const actionButton = document.querySelector('input[type="submit"]');
 // Place to show patients
 const listaCitas = document.querySelector('#citas');
 
+const animal = {
+    paciente: '',
+    propietario: '',
+    email: '',
+    fecha: '',
+    sintomas: ''
+}
+
 // Clases
 class alert {
-
     constructor(mensaje,tipo){
         this.mensaje=mensaje
         this.tipo=tipo
@@ -41,10 +48,7 @@ class alert {
         setTimeout(() => {
             alerta.remove()
         }, 3000)
-
-
-    }
-    
+    }    
 }
 
 class citas {
@@ -54,15 +58,13 @@ class citas {
     }
 
     agregarCita(citaAnimal) {        
-     /*    console.log(citaAnimal); */
+      /*   console.log(citaAnimal); */
      /*    console.log(this.cita); */
-        this.cita = [...this.cita,citaAnimal];
-        /* console.log('----------------------');
+        this.cita = [...this.cita, citaAnimal];
+    /*     console.log('----------------------'); */
 
-        console.log(this.cita); */
         this.mostrarCita();
-        
-        formulario.reset();        
+                
     }
 
     mostrarCita() {
@@ -73,6 +75,8 @@ class citas {
 
         // Generar citas
         this.cita.forEach(cita => {
+            console.log(cita);
+            
             const divCita = document.createElement('div');
             divCita.classList.add('mx-5', 'my-10', 'bg-white', 'shadow-md', 'px-5', 'py-10' ,'rounded-xl', 'p-3');
         
@@ -107,14 +111,23 @@ class citas {
     }
 }
 
-// Object to add information
-const animal = {
-    paciente: '',
-    propietario: '',
-    email: '',
-    fecha: '',
-    sintomas: ''
 
+// Funciones
+function resetObj() {
+    // Object to add information
+    /* animal.paciente= '';
+    animal.propietario= '';
+    animal.email= '';
+    animal.fecha= '';
+    animal.sintomas= '';  lo mismo que lo de después*/
+
+    Object.assign(animal, {
+        paciente: '',
+        propietario: '',
+        email: '',
+        fecha: '',
+        sintomas: ''
+    })
 }
 
 // Listeners
@@ -150,5 +163,6 @@ function addPatient(e) {
     new alert("Paciente añadido correctamente","check")
 
     citaClass.agregarCita(animal)
+    formulario.reset();  
+    resetObj();
 }
-
