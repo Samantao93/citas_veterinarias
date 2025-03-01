@@ -1,8 +1,6 @@
-# citas_veterinarias
-
-Taking the course by Juan Pablo de la Torre Valdez titled JavaScript Moderno Guía Definitiva Construye +20 Proyectos in Udemy
-
 # Sistema de Gestión de Citas para Pacientes Veterinarios
+
+Realizando el curso de ´Juan Pablo de la Torre Valdez titulado JavaScript Moderno Guía Definitiva Construye +20 Proyectos in Udemy
 
 ## Descripción
 
