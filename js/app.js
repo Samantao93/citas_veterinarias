@@ -15,6 +15,7 @@ const actionButton = document.querySelector('input[type="submit"]');
 const listaCitas = document.querySelector('#citas');
 
 const animal = {
+    id: generarID(),
     paciente: '',
     propietario: '',
     email: '',
@@ -132,13 +133,16 @@ class citas {
 // Funciones
 function resetObj() {
     // Object to add information
-    /* animal.paciente= '';
+    /* 
+    animal.id= generarId(),
+    animal.paciente= '';
     animal.propietario= '';
     animal.email= '';
     animal.fecha= '';
     animal.sintomas= '';  lo mismo que lo de después*/
 
     Object.assign(animal, {
+        id: generarID(),
         paciente: '',
         propietario: '',
         email: '',
@@ -187,4 +191,10 @@ function addPatient(e) {
 function editarCita(cita) {
     console.log(cita);
     
+}
+
+generarID();
+function generarID() {
+    const id =  Math.random().toString(15).substring(2) + Date.now();
+    return(id);
 }
