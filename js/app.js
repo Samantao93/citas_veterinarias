@@ -197,6 +197,11 @@ function addPatient(e) {
         return
     }
 
+    if (!validarEmail(animal.email)) {
+        new alert("El correo electrónico no es válido", "error");
+        return;
+    }
+
     if(editando){
         new alert("Paciente editado correctamente","check");
         // mapear y modificar los datos de citaClass para ese ID 
