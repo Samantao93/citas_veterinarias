@@ -64,10 +64,25 @@ class citas {
         this.mostrarCita();                
     }
 
+    editarCita(citaActualizada) {        
+        this.citas =  this.citas.map(cita => cita.id === citaActualizada.id ? citaActualizada : cita);
+        this.mostrarCita();                
+    }
+
+    eliminarCita(citaEliminar) {             
+        this.citas =  this.citas.filter(cita => cita.id !== citaEliminar.id);
+        this.mostrarCita();                
+    }
+
     mostrarCita() {
         // limpiar HTML
         while (listaCitas.firstChild) {
             listaCitas.removeChild(listaCitas.firstChild)
+        }
+
+        if(this.citas.length===0){
+            listaCitas.innerHTML=`<p class="text-xl mt-5 mb-10 text-center">No Hay Pacientes</p>`;
+            return
         }
 
         // Generar citas
@@ -108,10 +123,7 @@ class citas {
             const btnEliminar = document.createElement('button');
             btnEliminar.classList.add('py-2', 'px-10', 'bg-red-600', 'hover:bg-red-700', 'text-white', 'font-bold', 'uppercase', 'rounded-lg', 'flex', 'items-center', 'gap-2', 'btn-eliminar');
             btnEliminar.innerHTML = 'Eliminar <svg fill="none" class="h-5 w-5" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" stroke="currentColor"><path d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>'
-            // btnEliminar.onclick(() => {
-
-            // })
-
+            btnEliminar.onclick = () => this.eliminarCita(clon);
 
             const contenedorBotones = document.createElement('DIV');
             contenedorBotones.classList.add('flex','justify-between','mt-10');
@@ -187,16 +199,16 @@ function addPatient(e) {
 
     if(editando){
         new alert("Paciente editado correctamente","check");
-        // mapear y modificar los datos de citaClass para ese ID
-        formulario.reset();  
-        resetObj();
-              
+        // mapear y modificar los datos de citaClass para ese ID 
+        citaClass.editarCita({...animal});
+    
     } else {
         new alert("Paciente añadido correctamente","check");
         citaClass.agregarCita({...animal}); // le pasamos una copia {...animal} no el objeto animal
-        formulario.reset();  
-        resetObj();
     }
+
+    formulario.reset();
+    resetObj();
 }
 
 function editarCita(cita) {
@@ -208,8 +220,10 @@ function editarCita(cita) {
     fecha.value = cita.fecha;
     sintomas.value = cita.sintomas;
 
-    editando = true;
-    
+    editando = true; 
+
+    actionButton.value = 'Terminar de editar';
+    actionButton.onclick = () => actionButton.value = 'Registrar paciente';
 }
 
 function generarID() {
