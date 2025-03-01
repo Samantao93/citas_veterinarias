@@ -14,6 +14,8 @@ const actionButton = document.querySelector('input[type="submit"]');
 // Place to show patients
 const listaCitas = document.querySelector('#citas');
 
+let editando = false
+
 const animal = {
     id: generarID(),
     paciente: '',
@@ -149,6 +151,8 @@ function resetObj() {
         fecha: '',
         sintomas: ''
     })
+
+    editando = false;
 }
 
 // Listeners
@@ -180,20 +184,34 @@ function addPatient(e) {
         new alert("Todos los campos son obligatorios","error");
         return
     }
-    
-    new alert("Paciente añadido correctamente","check")
 
-    citaClass.agregarCita({...animal}); // le pasamos una copia {...animal} no el objeto animal
-    formulario.reset();  
-    resetObj();
+    if(editando){
+        new alert("Paciente editado correctamente","check");
+        // mapear y modificar los datos de citaClass para ese ID
+        formulario.reset();  
+        resetObj();
+              
+    } else {
+        new alert("Paciente añadido correctamente","check");
+        citaClass.agregarCita({...animal}); // le pasamos una copia {...animal} no el objeto animal
+        formulario.reset();  
+        resetObj();
+    }
 }
 
 function editarCita(cita) {
-    console.log(cita);
+    Object.assign(animal,cita);
+
+    paciente.value = cita.paciente;
+    propietario.value = cita.propietario;
+    email.value = cita.email;
+    fecha.value = cita.fecha;
+    sintomas.value = cita.sintomas;
+
+    editando = true;
     
 }
 
-generarID();
 function generarID() {
     const id =  Math.random().toString(15).substring(2) + Date.now();
     return(id);
