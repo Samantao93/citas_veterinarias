@@ -1,6 +1,6 @@
 # Sistema de Gestión de Citas para Pacientes Veterinarios
 
-Realizando el curso de ´Juan Pablo de la Torre Valdez titulado JavaScript Moderno Guía Definitiva Construye +20 Proyectos in Udemy
+Realizando el curso de Juan Pablo de la Torre Valdez titulado JavaScript Moderno Guía Definitiva Construye +20 Proyectos in Udemy
 
 ## Descripción
 
